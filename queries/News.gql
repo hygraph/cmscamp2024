@@ -5,6 +5,10 @@ query News($slug: String!, $stage: Stage! = PUBLISHED) {
     title
     subtitle
     description
+    moreLinkName
+    relatedPage {
+      slug
+    }
     image {
       ...ImageFields
     }

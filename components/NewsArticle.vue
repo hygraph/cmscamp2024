@@ -6,6 +6,8 @@ const props = defineProps([
   "subtitle",
   "description",
   "image",
+  "moreLinkName",
+  "relatedPage",
 ]);
 const { imageProvider } = useRuntimeConfig().public;
 const provider = computed(() => {
@@ -33,9 +35,15 @@ const provider = computed(() => {
       </h3>
       <p class="font-bold mb-4" v-if="subtitle">{{ subtitle }}</p>
       <div class="prose" v-html="description" />
-      <p class="mt-10">
+      <p class="mt-10 space-x-4">
         <nuxt-link :to="`/news/${slug}`" class="cta small"
           >More about</nuxt-link
+        >
+        <nuxt-link
+          v-if="moreLinkName"
+          :to="`/${relatedPage.slug}`"
+          class="cta small"
+          >{{ moreLinkName }}</nuxt-link
         >
       </p>
     </article>
