@@ -172,6 +172,10 @@ fragment ScheduleOverviewFields on ScheduleOverview {
     slots {
       slot
       time
+      externalUrl
+      relatedPage {
+        slug
+      }
     }
   }
 }

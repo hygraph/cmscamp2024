@@ -10,7 +10,6 @@ defineProps(["title", "schedules"]);
     >
       {{ title }}
     </h3>
-
     <tabs>
       <tab v-for="day in schedules" :key="day.day" :name="day.day">
         <div class="grid-cols-2 px-4 leading-10 font-bold hidden sm:grid">
@@ -23,7 +22,14 @@ defineProps(["title", "schedules"]);
           class="sm:grid grid-cols-2 bg-zinc-100 mb-4 sm:leading-10 p-4 sm:py-0"
         >
           <p>{{ slot.time }}</p>
-          <p class="font-bold">{{ slot.slot }}</p>
+          <p class="font-bold">
+            <nuxt-link
+              v-if="slot.externalUrl || slot.relatedPage?.slug"
+              :to="slot.externalUrl || slot.relatedPage?.slug"
+              >{{ slot.slot }}</nuxt-link
+            >
+            <span v-else>{{ slot.slot }}</span>
+          </p>
         </div>
       </tab>
     </tabs>
