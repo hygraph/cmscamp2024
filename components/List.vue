@@ -16,6 +16,9 @@ const cols = computed(() => {
     case "three":
       cols = `grid-cols-1 md:grid-cols-3`;
       break;
+    case "four":
+      cols = `grid-cols-1 md:grid-cols-4`;
+      break;
   }
 
   return cols;

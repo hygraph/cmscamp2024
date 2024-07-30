@@ -11,11 +11,11 @@ const provider = computed(() => {
     <LogoWhite class="block w-full sm:w-[470px] mx-auto mb-12" />
 
     <p class="font-bold mb-6">{{ footer?.sponsorsTitle }}</p>
-    <ul class="grid grid-cols-1 md:grid-cols-3 mb-16">
+    <ul class="grid grid-cols-1 md:grid-cols-4 mb-16">
       <li
         v-for="sponsor in footer?.sponsors"
         :key="sponsor.id"
-        class="flex justify-center mb-4 md:mx-4"
+        class="flex justify-center mb-4 md:mx-4 items-center"
       >
         <NuxtLink
           v-if="sponsor.url"

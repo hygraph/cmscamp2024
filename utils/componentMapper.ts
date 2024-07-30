@@ -16,6 +16,7 @@ import SupporterList from "@/components/SupporterList.vue"
 import SessionForm from "@/components/SessionForm.vue"
 import Callout from "@/components/Callout.vue"
 import Newsletter from "@/components/Newsletter.vue"
+import Head from "@/components/PersonHead.vue"
 
 type Mapping = {
   [name: string]: Component
@@ -37,7 +38,8 @@ export const mapping: Mapping = {
   SupporterList,
   SessionForm,
   Callout,
-  Newsletter
+  Newsletter,
+  Head
 };
 
 export function getComponentForName(name: string) {
