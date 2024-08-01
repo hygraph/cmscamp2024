@@ -129,6 +129,7 @@ fragment SessionFields on Session {
     }
   }
 }
+
 fragment HeadFields on Head {
   id
   __typename
@@ -139,6 +140,20 @@ fragment HeadFields on Head {
   position
   company
   link
+}
+
+fragment AttendeeFields on Attendee {
+  id
+  __typename
+  attendee_name: name
+  attendee_name_link: nameLink
+  attendee_role: role
+  attendee_role_link: roleLink
+  attendee_company: company
+  attendee_company_link: companyLink
+  attendee_image: image {
+    ...ImageFields
+  }
 }
 
 fragment SpeakerFields on Speaker {
@@ -174,6 +189,9 @@ fragment ListFields on List {
     }
     ... on Head {
       ...HeadFields
+    }
+    ... on Attendee {
+      ...AttendeeFields
     }
   }
 }
