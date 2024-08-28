@@ -174,7 +174,7 @@ fragment ListFields on List {
   id
   title
   itemsPerRow
-  linkedContent {
+  linkedContent(first: 100) {
     ... on NewsArticle {
       ...NewsArticleFields
     }
