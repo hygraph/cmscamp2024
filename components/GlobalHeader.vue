@@ -101,7 +101,7 @@ function toggleSubNav(itemId: string, event: Event) {
                 v-if="nestedItem?.page || nestedItem?.externalLink"
                 :to="getUrl(nestedItem)"
                 :target="nestedItem.externalLink ? '_blank' : '_self'"
-                class="text-base leading-6 block w-full py-2 px-4 text-center xl:text-left"
+                class="text-base leading-6 block w-full py-4 px-4 text-center xl:text-left"
                 :class="nestedItem.highlighted ? 'font-bold' : ''"
               >
                 {{ nestedItem.label }}
