@@ -11,6 +11,15 @@ query Navigation($stage: Stage! = PUBLISHED) {
       page {
         slug
       }
+      nestedItems {
+        id
+        label
+        externalLink
+        highlighted
+        page {
+          slug
+        }
+      }
     }
   }
 }
