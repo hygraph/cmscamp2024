@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { onBeforeRouteUpdate } from 'vue-router';
+
 const { $preview } = useNuxtApp();
 const stage = $preview ? "DRAFT" : "PUBLISHED";
 const { navigation } = await GqlNavigation({ stage });
@@ -26,16 +28,22 @@ function getUrl(item: any) {
 const open = ref(false);
 const openSubNavs = ref<Set<string>>(new Set());
 
+
 function toggle() {
   open.value = !open.value;
+}
+
+function clearSet() {
+  openSubNavs.value = new Set()
 }
 
 function toggleSubNav(itemId: string, event: Event) {
   event.preventDefault();
   event.stopPropagation();
   if (openSubNavs.value.has(itemId)) {
-    openSubNavs.value.delete(itemId);
+    clearSet()
   } else {
+    clearSet()
     openSubNavs.value.add(itemId);
   }
 }
@@ -63,6 +71,8 @@ function toggleSubNav(itemId: string, event: Event) {
             <nuxt-link
               v-if="item?.page || item?.externalLink"
               :to="getUrl(item)"
+              @click="clearSet()"
+
               :target="item.externalLink ? '_blank' : '_self'"
               class="font-bold text-xl leading-7 tracking-wide inline-block"
               :class="item.highlighted ? 'cta xl:mr-2' : 'xl:mr-2'"
@@ -99,6 +109,7 @@ function toggleSubNav(itemId: string, event: Event) {
             <li v-for="nestedItem in item.nestedItems" :key="nestedItem.id" class="hover:bg-gray-100">
               <nuxt-link
                 v-if="nestedItem?.page || nestedItem?.externalLink"
+                @click="clearSet()"
                 :to="getUrl(nestedItem)"
                 :target="nestedItem.externalLink ? '_blank' : '_self'"
                 class="text-base leading-6 block w-full py-4 px-4 text-center xl:text-left"
