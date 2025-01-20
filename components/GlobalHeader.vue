@@ -52,15 +52,15 @@ function toggleSubNav(itemId: string, event: Event) {
   <header
     class="px-6 xl:px-0 h-[120px] md:h-[160]px md:items- flex justify-between py-10 items-center relative z-10"
   >
-    <nuxt-link to="/" aria-label="Home" class="block w-[330px] h-[80px]">
-      <Logo class="hidden md:block w-[331px] h-[81px]" />
-      <LogoMobile class="md:hidden w-[108px] mt-2" />
+    <nuxt-link to="/" aria-label="Home" class="block md:min-w-[330px] h-[80px]">
+      <NuxtImg v-bind:src="navigation?.logo?.url" alt="Logo" class="hidden md:block w-[330px]"/>
+      <NuxtImg v-bind:src="navigation?.mobileLogo?.url" alt="Logo" class="md:hidden w-[108px] mt-2"/>
     </nuxt-link>
 
     <div class="flex items-center xl:w-full xl:justify-between">
       <ul
         v-if="navigationItems"
-        class="absolute top-[120px] justify-around xl:items-center	 text-center left-0 w-full z-20 bg-white xl:static xl:w-full xl:bg-none xl:flex xl:text-left"
+        class="absolute top-[120px] justify-around xl:items-center text-center left-0 w-full z-20 bg-white xl:static xl:w-full xl:bg-none xl:flex xl:text-left"
         :class="{ hidden: !open }"
       >
         <li>
