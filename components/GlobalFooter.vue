@@ -8,7 +8,7 @@ const provider = computed(() => {
 </script>
 <template>
   <footer class="bg-primary p-12 text-light text-center">
-    <LogoWhite class="block w-full sm:w-[470px] mx-auto mb-12" />
+    <NuxtImg v-bind:src="footer?.logo?.url" alt="CMS Camp Logo" class="block w-full sm:w-[470px] mx-auto mb-12"/>
 
     <p class="font-bold mb-6">{{ footer?.sponsorsTitle }}</p>
     <ul class="grid grid-cols-1 md:grid-cols-4 mb-16">

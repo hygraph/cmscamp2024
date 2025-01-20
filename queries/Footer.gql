@@ -1,5 +1,8 @@
 query Footer($stage: Stage! = PUBLISHED) {
   footer(where: { id: "clutp8sbo627g08w5jh00fyl9" }, stage: $stage) {
+    logo {
+      url
+    }
     sponsorsTitle
     organizersTitle
     organizers {
