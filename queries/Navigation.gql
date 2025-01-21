@@ -6,6 +6,9 @@ query Navigation($stage: Stage! = PUBLISHED) {
     mobileLogo {
       url
     }
+    mobileMenuLogo {
+      url
+    }
     title
     ticketsLabel
     ticketsUrl

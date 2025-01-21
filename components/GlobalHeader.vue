@@ -64,7 +64,7 @@ function toggleSubNav(itemId: string, event: Event) {
         :class="{ hidden: !open }"
       >
         <li>
-          <LogoWords class="xl:hidden w-[215px] h-[36px] mx-auto mb-2" />
+          <NuxtImg v-bind:src="navigation?.mobileMenuLogo?.url" alt="Logo" class="xl:hidden w-[215px] h-[36px] mx-auto mb-2"/>
         </li>
         <li v-for="item in navigationItems" :key="item.id" class="py-3 xl:py-0 relative">
           <div class="flex  items-center justify-center">
