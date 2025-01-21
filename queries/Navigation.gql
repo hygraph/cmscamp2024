@@ -1,5 +1,14 @@
 query Navigation($stage: Stage! = PUBLISHED) {
   navigation(where: { id: "cluqwbip82dc707w2m14gg677" }, stage: $stage) {
+    logo {
+      url
+    }
+    mobileLogo {
+      url
+    }
+    mobileMenuLogo {
+      url
+    }
     title
     ticketsLabel
     ticketsUrl
