@@ -13,7 +13,7 @@ const provider = computed(() => {
       class="flex items-center flex-col md:flex-row md:gap-x-16"
       :class="{ 'md:flex-row-reverse flex-col-reverse': mediaFirst }"
     >
-      <div class="relative h-full md:w-2/4">
+      <div class="relative h-full w-full md:w-2/4">
         <Text v-bind="text" />
       </div>
       <NuxtImg
