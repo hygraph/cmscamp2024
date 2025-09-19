@@ -37,6 +37,11 @@ function clearSet() {
   openSubNavs.value = new Set()
 }
 
+function closeMenu() {
+  open.value = false;
+  clearSet();
+}
+
 function toggleSubNav(itemId: string, event: Event) {
   event.preventDefault();
   event.stopPropagation();
@@ -71,7 +76,7 @@ function toggleSubNav(itemId: string, event: Event) {
             <nuxt-link
               v-if="item?.page || item?.externalLink"
               :to="getUrl(item)"
-              @click="clearSet()"
+              @click="closeMenu()"
 
               :target="item.externalLink ? '_blank' : '_self'"
               class="font-bold text-xl leading-7 tracking-wide inline-block"
@@ -109,7 +114,7 @@ function toggleSubNav(itemId: string, event: Event) {
             <li v-for="nestedItem in item.nestedItems" :key="nestedItem.id" class="hover:bg-gray-100">
               <nuxt-link
                 v-if="nestedItem?.page || nestedItem?.externalLink"
-                @click="clearSet()"
+                @click="closeMenu()"
                 :to="getUrl(nestedItem)"
                 :target="nestedItem.externalLink ? '_blank' : '_self'"
                 class="text-base leading-6 block w-full py-4 px-4 text-center xl:text-left"
