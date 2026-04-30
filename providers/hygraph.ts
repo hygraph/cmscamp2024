@@ -4,44 +4,57 @@ import type { ProviderGetImage } from '@nuxt/image'
 type ImageOptimizations = {
   width?: number
   height?: number
-  fit?: string | "clip" | "crop" | "scale" | "max"
-  format?: string | "jpg" | "png" | "webp" | "avif" | "auto_image",
+  fit?: 'cover' | 'contain' | 'fill' | 'inside' | 'outside' | 'clip' | 'crop' | 'scale' | 'max'
+  format?: 'jpg' | 'png' | 'webp' | 'avif' | 'gif' | 'auto_image'
   quality?: number
-}
-
-export function getImageFormat(format?: string) {
-  let result = 'auto_image';
-
-  if (format && format !== 'auto_image') {
-    result = `output=format:${format}`
-  }
-
-  return result;
 }
 
 export function optimizeHygraphImage(baseURL: string, url: string, optimizations: ImageOptimizations) {
   baseURL = baseURL.replace(/\/+$/, '');
-  const imageId = url.split(`${baseURL}/`)[1];
-  const imageFormat = getImageFormat(optimizations.format)
-  const optimBase = 'resize'
-  const quality = optimizations.quality ? `quality=value:${optimizations.quality}/` : ''
-
-  let optimList = [];
-  for (const [key, value] of Object.entries(optimizations)) {
-    if (key !== 'format' && key !== 'quality' && value !== undefined) {
-      if (key === 'fit' && value === 'contain') {
-        optimList.push('fit:max')
-      } else {
-        optimList.push(`${key}:${value}`)
-      }
-    }
+  
+  const imageId = url.split(`${baseURL}/`)[1]
+  if (!imageId) {
+    return url
   }
 
-  const optim = `${optimBase}=${optimList.join(',')}`
-  const result = joinURL(baseURL, optim, quality, imageFormat, imageId)
+  const transformations: string[] = []
 
-  return result;
+  if (optimizations.width || optimizations.height) {
+    const resizeParams: string[] = []
+    if (optimizations.width) resizeParams.push(`width:${optimizations.width}`)
+    if (optimizations.height) resizeParams.push(`height:${optimizations.height}`)
+    if (optimizations.fit) {
+      const fitMap: Record<string, string> = {
+        cover: 'crop',
+        contain: 'max',
+        fill: 'scale',
+        inside: 'clip',
+        outside: 'max',
+        clip: 'clip',
+        crop: 'crop',
+        scale: 'scale',
+        max: 'max'
+      }
+      resizeParams.push(`fit:${fitMap[optimizations.fit] || 'clip'}`)
+    }
+    transformations.push(`resize=${resizeParams.join(',')}`)
+  }
+
+  if (optimizations.quality) {
+    transformations.push(`quality=value:${optimizations.quality}`)
+  }
+
+  if (optimizations.format && optimizations.format !== 'auto_image') {
+    transformations.push(`format:${optimizations.format}`)
+  } else if (!optimizations.format || optimizations.format === 'auto_image') {
+    transformations.push('auto_image')
+  }
+
+  const transformString = transformations.join('/')
+  return joinURL(baseURL, transformString, imageId)
 }
+
+const DEFAULT_BASE_URL = 'https://eu-central-1-shared-euc1-02.graphassets.com/cluqa1kb02bgi07tdbi3a8tbo'
 
 export const getImage: ProviderGetImage = (
   src,
@@ -56,11 +69,9 @@ export const getImage: ProviderGetImage = (
     quality
   } = modifiers
 
-  if (!baseURL) {
-    throw ("No Hygraph image base URL provided.")
-  }
+  const resolvedBaseURL = baseURL || DEFAULT_BASE_URL
 
   return {
-    url: optimizeHygraphImage(baseURL, src, { width, height, fit, format, quality })
+    url: optimizeHygraphImage(resolvedBaseURL, src, { width, height, fit, format, quality })
   }
 }
