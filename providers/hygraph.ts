@@ -5,7 +5,7 @@ type ImageOptimizations = {
   width?: number
   height?: number
   fit?: 'cover' | 'contain' | 'fill' | 'inside' | 'outside' | 'clip' | 'crop' | 'scale' | 'max'
-  format?: 'jpg' | 'png' | 'webp' | 'avif' | 'gif' | 'auto_image'
+  format?: 'jpg' | 'png' | 'webp' | 'avif' | 'gif'
   quality?: number
 }
 
@@ -44,10 +44,8 @@ export function optimizeHygraphImage(baseURL: string, url: string, optimizations
     transformations.push(`quality=value:${optimizations.quality}`)
   }
 
-  if (optimizations.format && optimizations.format !== 'auto_image') {
+  if (optimizations.format) {
     transformations.push(`format:${optimizations.format}`)
-  } else if (!optimizations.format || optimizations.format === 'auto_image') {
-    transformations.push('auto_image')
   }
 
   const transformString = transformations.join('/')
