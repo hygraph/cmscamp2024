@@ -30,7 +30,7 @@ const bgImage = computed(() => {
 <template>
   <div
     :style="bgImage ? `background-image: url(${bgImage})` : ''"
-    class="mb-10 text-light relative overflow-hidden bg-cover"
+    class="mb-10 text-light relative overflow-hidden bg-cover bg-center"
     :class="{
       'aspect-[390/240]': logoImage,
       'aspect-[390/673]': !logoImage,
