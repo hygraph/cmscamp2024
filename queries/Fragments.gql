@@ -45,7 +45,6 @@ fragment HeroFields on Hero {
           compress: { metadata: true }
           quality: { value: 80 }
         }
-        document: { output: { format: autoImage } }
       }
     )
   }
